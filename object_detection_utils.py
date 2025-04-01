@@ -716,11 +716,13 @@ def get_backbone(type, weights, model_size):
         },
         'efficientnetlite': {
             None: {
-                's': keras_cv.models.EfficientNetLiteBackbone.from_preset(f"efficientnetlite_b0"),
-                'm': keras_cv.models.EfficientNetLiteBackbone.from_preset(f"efficientnetlite_b1"),
-                'l': keras_cv.models.EfficientNetLiteBackbone.from_preset(f"efficientnetlite_b2"),
-                'xl': keras_cv.models.EfficientNetLiteBackbone.from_preset(f"efficientnetlite_b3")
-                }
+                's': lambda: keras_cv.models.EfficientNetLiteB0Backbone(include_rescaling=False),  # Direct instantiation
+                'm': lambda: keras_cv.models.EfficientNetLiteB1Backbone(include_rescaling=False),  # Direct instantiation
+                'l': lambda: keras_cv.models.EfficientNetLiteB2Backbone(include_rescaling=False),  # Direct instantiation
+                'xl': lambda: keras_cv.models.EfficientNetLiteB3Backbone(include_rescaling=False) # Direct instantiation
+                # Note: EfficientNetLiteB4Backbone might exist, adjust 'xl' if needed.
+            }
+            # Add 'imagenet' key here if you plan to support pretrained EfficientNetLite backbones later
         },
         
         # MobileNet
